@@ -54,7 +54,8 @@ RUN apt-get update \
     # Clean up
     && apt-get autoremove -y \
     && apt-get clean -y \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/* \ 
+    && apt-get install -y vim
 
 RUN apt-get update && apt-get install -y zsh && chsh -s /usr/bin/zsh
 RUN wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh || true
