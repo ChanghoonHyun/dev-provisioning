@@ -62,7 +62,8 @@ RUN wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -
 RUN wget https://releases.hashicorp.com/terraform/0.12.21/terraform_0.12.21_linux_amd64.zip
 RUN unzip terraform_0.12.21_linux_amd64.zip \
     && sudo mv terraform /usr/local/bin/ \
-    && rm -f terraform_0.12.21_linux_amd64.zip
+    && rm -f terraform_0.12.21_linux_amd64.zip \ 
+    && apt-get install -y vim
 
 # Switch back to dialog for any ad-hoc use of apt-get
 ENV DEBIAN_FRONTEND=dialog
