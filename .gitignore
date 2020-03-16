@@ -1,0 +1,8 @@
+config.json
+id_rsa
+id_rsa.pub
+sshd_config
+rc.local
+.vagrant
+.zshrc
+.vimrc

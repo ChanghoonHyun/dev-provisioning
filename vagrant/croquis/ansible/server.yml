@@ -1,0 +1,23 @@
+- hosts: all
+  become: yes
+  become_user: root
+  connection: ssh
+  gather_facts: no
+  pre_tasks:
+    - include_vars:
+        file: ../config.json
+        name: config
+  roles:
+    - role: common_tasks
+      vars:
+        copy_files: "{{ config.common_tasks.copy_files }}"
+    - role: ssh
+      vars:
+        copy_files: "{{ config.ssh.copy_files }}"
+        authorized_keys: "{{ config.ssh.authorized_keys }}"
+    - role: dev_environment
+      vars:
+        copy_files: "{{ config.dev_environment.copy_files }}"
+  post_tasks:
+    - name: reboot vm
+      shell: reboot

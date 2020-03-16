@@ -1,0 +1,35 @@
+- name: Settings for tools
+  shell: |
+    yum install -y git
+    yum install -y util-linux-user
+    yum install -y python3
+
+- name: Settings for zsh
+  shell: |
+    yum install -y zsh
+    chsh -s $(which zsh)
+    wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh
+    cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
+    source ~/.zshrc
+    mkdir -p ~/.local/share/fonts
+    cd ~/.local/share/fonts && curl -fLo "nerd_hack_fonts.ttf" https://github.com/ryanoasis/nerd-fonts/blob/master/patched-fonts/Hack/Regular/complete/Hack%20Regular%20Nerd%20Font%20Complete.ttf 
+    git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
+
+- name: Settings for kst
+  shell: |
+    rm /etc/localtime
+    ln -s /usr/share/zoneinfo/Asia/Seoul /etc/localtime
+      
+- name: Settings terraform
+  shell: |
+    wget https://releases.hashicorp.com/terraform/0.12.2/terraform_0.12.2_linux_amd64.zip
+    unzip terraform_0.12.2_linux_amd64.zip -d /usr/local/bin
+
+- name: copy files
+  copy:
+    src: "{{item.key}}"
+    dest: "{{item.value.dest}}"
+    mode: "{{item.value.mode}}"
+    backup: "{{item.value.backup}}"
+  with_dict:
+      - "{{ copy_files }}"

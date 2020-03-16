@@ -1,0 +1,10 @@
+syntax on ''
+set number
+set showmatch
+set cursorline
+set cursorcolumn
+set ruler
+set ignorecase
+set autoindent
+set expandtab
+set tabstop=4
