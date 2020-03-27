@@ -30,6 +30,10 @@
   shell: |
     url -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
 
+- name: docker
+  shell: |
+    yum install -y docker
+
 - name: copy files
   copy:
     src: "{{item.key}}"
