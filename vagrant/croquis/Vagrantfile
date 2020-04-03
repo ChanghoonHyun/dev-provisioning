@@ -5,6 +5,7 @@ require 'json'
 Vagrant.configure(2) do |config|
   env = JSON.parse(File.read(File.join(File.dirname(__FILE__), 'config.json')))['vagrant']
   config.vm.box = env["box"]
+	config.disksize.size = env['disksize']
 
   config.vm.provider "virtualbox" do |v|
     v.name = env["name"]
