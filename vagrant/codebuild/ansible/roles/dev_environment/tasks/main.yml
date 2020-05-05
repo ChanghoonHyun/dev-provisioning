@@ -33,6 +33,7 @@
 - name: ts
   shell: |
     npm i -g tslint@5 typescript
+    npm i -g ts-node
 
 - name: docker
   shell: |
