@@ -1,0 +1,20 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+require 'json'
+
+Vagrant.configure(2) do |config|
+  env = JSON.parse(File.read(File.join(File.dirname(__FILE__), 'config.json')))['vagrant']
+  config.vm.box = env["box"]
+
+  config.vm.provider "virtualbox" do |v|
+    v.name = env["name"]
+    v.cpus = env["cpu"]
+    v.memory = env["memory"]
+  end
+
+  config.vm.network "private_network", ip: env["ip"]
+  config.vm.provision "ansible" do |ansible|
+    ansible.verbose =  "v"
+    ansible.playbook = "ansible/server.yml"
+  end
+end

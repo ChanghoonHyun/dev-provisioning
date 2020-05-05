@@ -70,3 +70,17 @@
     backup: "{{item.value.backup}}"
   with_dict:
       - "{{ copy_files }}"
+
+- name: node
+  environment:
+		N_SRC_DIR: ./n
+		NODE_10_VERSION: 10.15.3
+  shell: |
+		git clone https://github.com/tj/n $N_SRC_DIR \
+    && cd $N_SRC_DIR \
+		&& make install \
+		&& n $NODE_10_VERSION \
+		&& rm -rf /tmp/* \
+    && npm install -g typescript \
+    && npm install -g ts-node
+

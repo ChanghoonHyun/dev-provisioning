@@ -1,0 +1,15 @@
+- name: copy files
+  copy:
+    src: "{{item.key}}"
+    dest: "{{item.value.dest}}"
+    mode: "{{item.value.mode}}"
+    backup: "{{item.value.backup}}"
+  with_dict:
+    - "{{ copy_files }}"
+
+- name: set authorized_keys
+  authorized_key:
+    user: root
+    key: "{{lookup('file', item)}}"
+  with_items:
+    - "{{authorized_keys}}"
