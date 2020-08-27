@@ -23,7 +23,7 @@
       
 - name: Settings terraform
   environment:
-    TERRAFORM_VERSION: 0.12.24
+    TERRAFORM_VERSION: 0.12.29
   shell: |
     wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip
     unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip -d /usr/local/bin
@@ -60,7 +60,7 @@
     && unzip awscliv2.zip \
     && ./aws/install \
     && rm -rf awscliv2 awscliv2.zip \
-		&& complete -C aws_completer aws
+	&& complete -C aws_completer aws
 
 - name: copy files
   copy:
@@ -73,14 +73,21 @@
 
 - name: node
   environment:
-		N_SRC_DIR: ./n
-		NODE_10_VERSION: 10.15.3
+    N_SRC_DIR: ./n
+    NODE_10_VERSION: 10.15.3
   shell: |
-		git clone https://github.com/tj/n $N_SRC_DIR \
+	git clone https://github.com/tj/n $N_SRC_DIR \
     && cd $N_SRC_DIR \
-		&& make install \
-		&& n $NODE_10_VERSION \
-		&& rm -rf /tmp/* \
+	&& make install \
+	&& n $NODE_10_VERSION \
+	&& rm -rf /tmp/* \
     && npm install -g typescript \
     && npm install -g ts-node
 
+- name: golang
+  environment:
+    N_SRC_DIR: ./n
+    NODE_10_VERSION: 10.15.3
+  shell: |
+    wget https://golang.org/dl/go1.15.linux-amd64.tar.gz \
+    && tar -C /usr/local -xzf go1.15.linux-amd64.tar.gz
